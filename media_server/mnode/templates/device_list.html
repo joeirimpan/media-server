@@ -21,7 +21,7 @@
   </nav>
 	<div class="collection">
     {% for host in hostList %}
-     {% if host != clientIp %}
+     {% if host.ip != clientIp %}
 	    		<a href="#!" class="collection-item">{{ host.ip }}<span class="badge">1</span></a>
       {% else %}
 	    		<a href="#!" class="collection-item">{{ host.ip }}<span class="new badge green" data-badge-caption="Me"></span></a>
