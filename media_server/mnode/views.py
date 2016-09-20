@@ -8,8 +8,21 @@ from django.core.urlresolvers import reverse
 
 from models import Document
 from forms import DocumentForm
+
+
+import os
+module_dir = os.path.dirname(__file__)  # get current directory
+exec_file = os.path.join(module_dir, 'Shared_Folder/start_server.py')
+exec_file_path = os.path.join(module_dir, 'Shared_Folder/')
+
+import socket
+server_addr=socket.gethostbyname(socket.gethostname())
+import nmap
+from subprocess import Popen, PIPE
+
 from helpers import get_lan_ip
 
+#show the devices in local network
 
 def scan_list(request):
     hosts= str(get_lan_ip()) + "/24"
@@ -35,7 +48,27 @@ def scan_list(request):
     return render(
         request,
         'device_list.html',
-        {'hostList': hostList, 'clientIp' : client_ip}
+        {'hostList': hostList, 'clientIp' : client_ip,'serverAddr' : server_addr}
+    )
+#start python simple http server
+def start_server(request):
+    pipe = Popen(exec_file,shell=True , stdout=PIPE,cwd=exec_file_path)
+    out = pipe.communicate()[0] 
+    print(out)
+    return render(
+        request,
+        'start_server.html',
+        {'serverAddr': server_addr + ':8005',
+	 'output': out}
+    )
+
+#stop python simple http server
+def stop_server(request):
+    return render(
+        request,
+        'stop_server.html',
+        {'serverAddr': server_addr + ':8005',
+         'output': out}
     )
 
 
@@ -61,3 +94,4 @@ def list(request):
         'list.html',
         {'documents': documents, 'form': form}
     )
+  

@@ -15,21 +15,14 @@
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center">Wufph</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-	<li class="active"><a href="#!">Devices</a></li>
-	<li ><a href="startserver">Start Server</a></li>
+	<li ><a href="/mnode/">Devices</a></li>
+	<li class="active"><a href="#!">Start Server</a></li>
        </ul>
     </div>
   </nav>
 	<div class="collection">
-    {% for host in hostList %}
-     {% if host.ip != clientIp %}
-       <a href="#!" class="collection-item">{{ host.ip }}<span class="badge">1</span></a>
-      {% elif host.ip != serverAddr %}
-	    		<a href="#!" class="collection-item">{{ host.ip }}<span class="new badge green" data-badge-caption="Me"></span></a>
-      {% else %}
-		   <a href="#!" class="collection-item">{{ host.ip }}<span class="new badge red" data-badge-caption="Server"></span></a>
-      {% endif %}
-    {% endfor %}
-	</div>
+	    		<a href="http://{{ serverAddr }}" class="collection-item">Server started at {{ serverAddr }}<span class="badge red">Up</span></a>
+<a class="collection-item">output {{ output }}<span class="badge green">X</span></a>
+     	  </div>
   </body>
 </html>
